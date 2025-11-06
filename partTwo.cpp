@@ -68,6 +68,34 @@ int messageStartIndex3(std::string code){
     return 0;
 }
 
+int messageStartIndex4(std::string code){
+    const int blocksOfFourteen = code.size() - 14;
+    for(int i = 0; i <= blocksOfFourteen; i++){
+        std::set<char> charCheck;
+        charCheck.emplace(code[(i)]);
+        charCheck.emplace(code[(i+1)]);
+        charCheck.emplace(code[(i+2)]);
+        charCheck.emplace(code[(i+3)]);
+        charCheck.emplace(code[(i+4)]);
+        charCheck.emplace(code[(i+5)]);
+        charCheck.emplace(code[(i+6)]);
+        charCheck.emplace(code[(i+7)]);
+        charCheck.emplace(code[(i+8)]);
+        charCheck.emplace(code[(i+9)]);
+        charCheck.emplace(code[(i+10)]);
+        charCheck.emplace(code[(i+11)]);
+        charCheck.emplace(code[(i+12)]);
+        charCheck.emplace(code[(i+13)]);
+        if(charCheck.size() == 14){
+            std::cout << "The Index: " << std::to_string(i+14) << std::endl;
+            return (i+14);
+        }
+    }
+    return 0;
+}
+
+// Add proper Benchmarking. Try to simultaneously do multiple checks in j at once.
+
 int main(){
     std::string test6 = "mjqjpqmgbljsphdztnvjfqwrcgsmlb"; // 19
     std::string test7 = "bvwbjplbgvbhsrlpgdmjqwftvncz"; // 23
@@ -76,18 +104,22 @@ int main(){
     std::string test10 = "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw"; // 26
     std::string tests[5] = {test6, test7, test8, test9, test10};
 
-    auto start = std::chrono::system_clock::now();
+    // auto start = std::chrono::high_resolution_clock::now();
     for(auto test : tests){
-        int firstMarker = messageStartIndex3(test);
+        int firstMarker = messageStartIndex4(test);
     }
-    auto end = std::chrono::system_clock::now();
+    // auto finish = std::chrono::high_resolution_clock::now();
 
-    std::chrono::duration<double> elapsed_seconds = end-start;
-    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    // std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(start).count() << std::endl;
+    // std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(finish-start).count() << "ns\n";
 
-    std::cout << "finished computation at " << std::ctime(&end_time)
-              << "elapsed time: " << elapsed_seconds.count() << "s"
-              << std::endl;
+
+    // std::chrono::duration<double> elapsed_seconds = finish-start;
+    // // std::time_t end_time = std::chrono::high_resolution_clock::to_time_t(end);
+
+    // // std::cout << "finished computation at " << std::ctime(&end_time)
+    //      std::cout     << "elapsed time: " << elapsed_seconds.count() << "s"
+    //           << std::endl;
 
     return 0;
 }
